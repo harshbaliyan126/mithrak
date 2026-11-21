@@ -7,15 +7,21 @@
 /* Athelas is a commercial font (TypeType). Uses a locally installed copy if present
    (it ships with macOS), else the files in /public/fonts — see the README there. */
 @font-face {
-  font-family: "Athelas";
-  src: local("Athelas Regular"), local("Athelas-Regular"), url("/fonts/Athelas-Regular.woff2") format("woff2");
+  font-family: 'Athelas';
+  src:
+    local('Athelas Regular'),
+    local('Athelas-Regular'),
+    url('/fonts/Athelas-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Athelas";
-  src: local("Athelas Italic"), local("Athelas-Italic"), url("/fonts/Athelas-Italic.woff2") format("woff2");
+  font-family: 'Athelas';
+  src:
+    local('Athelas Italic'),
+    local('Athelas-Italic'),
+    url('/fonts/Athelas-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -32,8 +38,9 @@
   --accent-ink: #ffffff;
   --brand-brown: #3d2616;
 
-  --serif: "Athelas", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --sans: var(--font-funnel), "Helvetica Neue", Arial, sans-serif;
+  --serif:
+    'Athelas', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: var(--font-funnel), 'Helvetica Neue', Arial, sans-serif;
 
   --announce-h: 30px;
   --header-h: 80px;
@@ -464,7 +471,7 @@ video {
   margin-bottom: 4px;
 }
 .card-link::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -518,7 +525,9 @@ video {
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   color: var(--ink);
-  transition: opacity 0.25s ease, background 0.2s ease;
+  transition:
+    opacity 0.25s ease,
+    background 0.2s ease;
 }
 .rail-arrow:hover {
   background: var(--ink);
@@ -630,21 +639,28 @@ video {
 .stories > .label:first-child {
   margin-bottom: 24px;
 }
-/* Uniform grid: every cell is the same size, and every image sits the same
-   distance (--story-inset) inside its cell. On hover the inset animates to 0
-   so the image fills the whole cell. */
-.stories-grid {
-  --story-inset: 20px;
+/* Rows of three equal flex cells (no CSS grid). Each cell is a padded div;
+   the image sits centred inside it at half the cell's width, 4:5. */
+.stories-rows {
   width: 100%;
-  max-width: 1180px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding: 120px 0 190px;
+  padding: 20px 0 90px;
+}
+.stories-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.story-frame {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 100px;
 }
 .story {
   position: relative;
   display: block;
+  width: 50%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--card);
@@ -655,12 +671,6 @@ video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  clip-path: inset(var(--story-inset));
-  transition: clip-path 0.7s var(--ease);
-}
-.story:hover .story-img,
-.story:focus-visible .story-img {
-  clip-path: inset(0);
 }
 
 /* --------------------------------------------------------------------------
@@ -1259,11 +1269,19 @@ video {
     height: 230px;
   }
 
-  .stories-grid {
-    --story-inset: 12px;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 60px 0 100px;
+  /* Each row stacks into one column; images grow to two-thirds width. */
+  .stories-rows {
+    padding: 40px 0 80px;
+  }
+  .stories-row {
+    flex-direction: column;
+  }
+  .story-frame {
+    width: 100%;
+    padding-block: 20px;
+  }
+  .story {
+    width: 67%;
   }
 
   .footer {

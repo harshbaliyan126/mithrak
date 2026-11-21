@@ -2,8 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { getTopInstagramPosts, type InstagramPost } from '@/lib/instagram';
 import { social } from '@/lib/site';
+import { StoryCard } from '@/components/StoryCard';
 
 const LOCAL_DIR = 'images'; // public/images
+const PER_ROW = 3;
 const IMAGE_EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
 /**
@@ -33,31 +35,21 @@ function getLocalPosts(count: number): InstagramPost[] {
 /** "The stories we share": the account's six most-liked Instagram posts, images only. */
 export async function InstagramStories() {
   const posts = (await getTopInstagramPosts(6, social.handle)) ?? getLocalPosts(6);
+  const rows: InstagramPost[][] = [];
+  for (let i = 0; i < posts.length; i += PER_ROW) rows.push(posts.slice(i, i + PER_ROW));
 
   return (
     <section className='stories'>
       <p className='label'>By you</p>
       <h2 className='serif-heading'>The stories we share</h2>
-      <div className='stories-grid'>
-        {posts.map((post) => (
-          <a
-            key={post.id}
-            href={post.url}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='story'
-            aria-label={`${post.alt} — view on Instagram (opens in a new tab)`}
-          >
-            {/* Plain <img>: Instagram CDN URLs are signed and already sized. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={post.image}
-              alt={post.alt}
-              loading='lazy'
-              decoding='async'
-              className='story-img'
-            />
-          </a>
+      {/* Like lore.world: rows of three flex cells, each a padded div with the image centred inside. */}
+      <div className='stories-rows'>
+        {rows.map((row) => (
+          <div key={row[0].id} className='stories-row'>
+            {row.map((post) => (
+              <StoryCard key={post.id} post={post} />
+            ))}
+          </div>
         ))}
       </div>
       <a

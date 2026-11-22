@@ -20,7 +20,16 @@ export function ProductCard({ product: p, priority }: { product: Product; priori
   };
 
   return (
-    <article className="card" style={{ background: p.tint }}>
+    <article
+      className={`card ${p.hoverGradient || p.texture ? "has-hover-gradient" : ""} ${p.texture ? "has-hover-texture" : ""} ${p.texture && p.textureTone !== "light" ? "has-dark-texture" : ""}`}
+      style={
+        {
+          background: p.tint,
+          "--hover-gradient": p.hoverGradient && `linear-gradient(180deg, ${p.hoverGradient[0]}, ${p.hoverGradient[1]})`,
+          "--hover-texture": p.texture && `url("${p.texture}")`,
+        } as React.CSSProperties
+      }
+    >
       {p.badge && <span className="badge">{p.badge}</span>}
       <div className="card-media">
         <ProductMedia product={p} priority={priority} sizes="(max-width: 768px) 60vw, 32vw" />

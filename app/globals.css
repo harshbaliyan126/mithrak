@@ -392,9 +392,11 @@ video {
   place-items: center;
   min-height: 0;
 }
-.np-media svg {
+.np-media svg,
+.np-media .np-img {
   height: 170px;
   width: auto;
+  object-fit: contain;
 }
 .np-name {
   font-family: var(--serif);
@@ -561,6 +563,66 @@ video {
   aspect-ratio: 451 / 598;
   scroll-snap-align: start;
 }
+/* Every rail photo sits in the same fixed box, inset from the card edges. */
+.rail-track .card-media {
+  flex: 0 0 auto;
+  aspect-ratio: 1 / 1;
+  margin: 48px 40px 24px;
+}
+.rail-track .card-info {
+  margin-top: auto;
+}
+/* No zoom on hover in the rail. */
+.rail-track .card:hover .card-media > .media-placeholder,
+.rail-track .card:hover .card-media > .media-img {
+  transform: none;
+}
+/* Hover: fade in a gradient built from the product photo's colours. */
+.card.has-hover-gradient {
+  isolation: isolate;
+}
+.card.has-hover-gradient::before,
+.card.has-hover-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  pointer-events: none;
+}
+.card.has-hover-gradient::before {
+  /* Soft light from the top-left, over the photo-coloured gradient. */
+  background:
+    radial-gradient(120% 80% at 20% 0%, rgba(255, 255, 255, 0.55), transparent 60%),
+    var(--hover-gradient);
+}
+/* Grain texture on top of the gradient. */
+.card.has-hover-gradient::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+}
+.card.has-hover-gradient:hover::after {
+  opacity: 0.35;
+}
+/* Products with a texture photo (e.g. Mare's forest) show it instead of the gradient. */
+.card.has-hover-texture::before {
+  background: var(--hover-texture) center / cover no-repeat;
+}
+.card.has-hover-texture::after {
+  display: none;
+}
+/* Dark textures: the name and price turn white over them. */
+.card.has-dark-texture .card-info {
+  transition: color 0.5s var(--ease);
+}
+.card.has-dark-texture:hover .card-info {
+  color: #fff;
+}
+.card.has-hover-gradient:hover::before {
+  opacity: 1;
+}
 
 /* --------------------------------------------------------------------------
    Editorial line
@@ -605,9 +667,11 @@ video {
   place-items: center;
   min-height: 0;
 }
-.campaign-media svg {
+.campaign-media svg,
+.campaign-media .campaign-img {
   height: 280px;
   width: auto;
+  object-fit: contain;
 }
 .campaign-tag {
   font-size: 14px;
@@ -944,6 +1008,24 @@ video {
 .pdp {
   color: #fff;
 }
+/* Light texture backgrounds (e.g. Eden's paper): dark text and controls instead of white. */
+.pdp.pdp-light {
+  color: var(--ink);
+}
+.pdp-light .buy-sizes button {
+  background: rgba(27, 27, 27, 0.06);
+}
+.pdp-light .buy-sizes button.is-active {
+  background: transparent;
+  border-color: var(--ink);
+}
+.pdp-light .buy-add {
+  background: var(--ink);
+  color: #fff;
+}
+.pdp-light .buy-add:hover {
+  background: #333;
+}
 .pdp-cols {
   display: grid;
   grid-template-columns: 1fr 476px 1fr;
@@ -1219,7 +1301,8 @@ video {
     grid-column: 2;
     grid-row: 1 / span 2;
   }
-  .np-media svg {
+  .np-media svg,
+  .np-media .np-img {
     height: 96px;
   }
   .np-text {
@@ -1236,6 +1319,9 @@ video {
   }
   .rail-track .card {
     flex-basis: 60vw;
+  }
+  .rail-track .card-media {
+    margin: 40px 28px 16px;
   }
   .serif-name {
     font-size: 16px;
@@ -1265,7 +1351,8 @@ video {
   .campaign-card {
     height: 400px;
   }
-  .campaign-media svg {
+  .campaign-media svg,
+  .campaign-media .campaign-img {
     height: 230px;
   }
 
@@ -1358,4 +1445,11 @@ video {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Work-in-progress placeholder page */
+.wip {
+  min-height: 70vh;
+  align-content: center;
+  gap: 24px;
 }

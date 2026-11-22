@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Product } from "@/lib/products";
@@ -7,7 +8,7 @@ import { Ambient } from "./Ambient";
 import { Bottle } from "./Bottle";
 import { MuteIcon, NextIcon, PauseIcon, PlayIcon, PrevIcon, SoundIcon } from "./Icons";
 
-export type HeroSlide = { product: Product; video?: string; zoom?: number };
+export type HeroSlide = { product: Product; video?: string; zoom?: number; image?: string };
 
 /** Used only for slides without a video; video slides advance when the video ends. */
 const IMAGE_DURATION = 8000;
@@ -45,6 +46,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   }, [i, paused, go, slides]);
 
   const p = slides[i].product;
+  const image = slides[i].image;
 
   return (
     <section className="hero" aria-roledescription="carousel" aria-label="Now playing">
@@ -75,7 +77,11 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
         <Link href={`/products/${p.slug}`} className="np-card glass" key={p.slug}>
           <p className="label">Now playing</p>
           <div className="np-media">
-            <Bottle liquid={p.liquid} name={`np-${p.slug}`} set={p.family === "Set"} />
+            {image ? (
+              <Image src={image} alt={p.name} width={340} height={340} className="np-img" priority />
+            ) : (
+              <Bottle liquid={p.liquid} name={`np-${p.slug}`} set={p.family === "Set"} />
+            )}
           </div>
           <div className="np-text">
             <p className="np-name">{p.name}</p>

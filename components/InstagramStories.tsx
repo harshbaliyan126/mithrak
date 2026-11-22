@@ -32,16 +32,20 @@ function getLocalPosts(count: number): InstagramPost[] {
   }
 }
 
-/** "The stories we share": the account's six most-liked Instagram posts, images only. */
+/** "From Us to You": the account's six most-liked Instagram posts, images only. */
 export async function InstagramStories() {
-  const posts = (await getTopInstagramPosts(6, social.handle)) ?? getLocalPosts(6);
+  const posts =
+    (await getTopInstagramPosts(6, social.handle)) ?? getLocalPosts(6);
   const rows: InstagramPost[][] = [];
-  for (let i = 0; i < posts.length; i += PER_ROW) rows.push(posts.slice(i, i + PER_ROW));
+  for (let i = 0; i < posts.length; i += PER_ROW)
+    rows.push(posts.slice(i, i + PER_ROW));
 
   return (
     <section className='stories'>
       <p className='label'>By you</p>
-      <h2 className='serif-heading'>The stories we share</h2>
+      <h2 className='serif-heading'>From Us to You</h2>
+      <br />
+      <br />
       {/* Like lore.world: rows of three flex cells, each a padded div with the image centred inside. */}
       <div className='stories-rows'>
         {rows.map((row) => (

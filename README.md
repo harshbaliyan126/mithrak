@@ -40,7 +40,7 @@ one per slide; when a video ends, the next slide starts. Put files in `public/vi
 The campaign block uses `campaign.video` (same file / `zoom` rules) and only plays while on screen.
 The end of each product page shows a moving colour field until you set `video` on that product.
 
-## Instagram ("The stories we share")
+## Instagram ("From Us to You")
 
 The homepage shows the account's 6 most-liked posts (images only; each opens the post on Instagram).
 Posts are fetched on the server and refreshed every 6 hours. Without a token (or if the API fails), the

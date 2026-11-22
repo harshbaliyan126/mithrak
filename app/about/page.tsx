@@ -1,4 +1,17 @@
 import type { Metadata } from "next";
+import { WorkInProgress } from "@/components/WorkInProgress";
+
+export const metadata: Metadata = { title: "Work in progress" };
+
+// Work in progress: every page except the homepage shows a placeholder for now.
+// The original page is kept below, commented out. To restore it, delete everything
+// above the comment block and remove the comment markers.
+export default function About() {
+  return <WorkInProgress />;
+}
+
+/* ---- Original page (disabled) ----
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FullLogo } from "@/components/Logo";
 
@@ -36,3 +49,4 @@ export default function About() {
     </div>
   );
 }
+---- end original page ---- */

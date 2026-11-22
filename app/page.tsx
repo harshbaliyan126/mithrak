@@ -12,7 +12,7 @@ export const revalidate = 21600;
 export default function Home() {
   const hero = heroSlides.flatMap((s) => {
     const product = getProduct(s.slug);
-    return product ? [{ product, video: s.video, zoom: s.zoom }] : [];
+    return product ? [{ product, video: s.video, zoom: s.zoom, image: s.image }] : [];
   });
   const featured = getProducts(featuredSlugs);
   const campaignProduct = getProduct(campaign.slug)!;
@@ -30,7 +30,7 @@ export default function Home() {
         </Link>
       </section>
 
-      <Campaign product={campaignProduct} video={campaign.video} zoom={campaign.zoom} />
+      <Campaign product={campaignProduct} video={campaign.video} zoom={campaign.zoom} image={campaign.image} />
 
       <InstagramStories />
     </>

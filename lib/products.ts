@@ -28,6 +28,13 @@ export type Product = {
   tint: string;
   /** Product page background gradient, top → bottom. Mid-tones so white text stays readable. */
   gradient: [string, string];
+  /** Card background on hover, top → bottom, taken from the product photo's colours. */
+  hoverGradient?: [string, string];
+  /** Optional texture image (file in /public/textures): the product page background and the
+   *  homepage card's hover background, in place of the gradients. */
+  texture?: string;
+  /** Whether the texture is mostly dark (white text on it, the default) or light (dark text). */
+  textureTone?: "dark" | "light";
   /** Optional real product photos (put files in /public/products). */
   images?: string[];
   /** Optional video for the homepage hero / product page (put files in /public/video). */
@@ -40,8 +47,8 @@ const INGREDIENTS =
 
 export const products: Product[] = [
   {
-    slug: "saffron-hour",
-    name: "Saffron Hour",
+    slug: "kos",
+    name: "Kos",
     kind: "Eau de Parfum",
     family: "Amber",
     subtitle: "Golden saffron amber",
@@ -53,13 +60,17 @@ export const products: Product[] = [
     ingredients: INGREDIENTS,
     notes: ["Saffron", "pink pepper", "osmanthus", "soft leather", "and amber"],
     sizes: [
-      { label: "50ml", price: 4800 },
+      { label: "50ml", price: 2999 },
       { label: "10ml", price: 1450 },
     ],
     badge: "New",
     liquid: "#d9a441",
     tint: CARD,
     gradient: ["#c4b9a4", "#b5823a"],
+    images: ["/productRailImages/m4.png"],
+    hoverGradient: ["#f6e6d8", "#e0a170"],
+    texture: "/textures/kos-flowers.webp",
+    textureTone: "light",
   },
   {
     slug: "monsoon-letter",
@@ -106,8 +117,8 @@ export const products: Product[] = [
     gradient: ["#bdbab3", "#7f8aa0"],
   },
   {
-    slug: "velvet-oud",
-    name: "Velvet Oud",
+    slug: "eden",
+    name: "Eden",
     kind: "Eau de Parfum",
     family: "Woody",
     subtitle: "Smoked oud and plum",
@@ -119,17 +130,21 @@ export const products: Product[] = [
     ingredients: INGREDIENTS,
     notes: ["Plum", "clove", "damask rose", "incense", "and oud"],
     sizes: [
-      { label: "50ml", price: 5600 },
+      { label: "50ml", price: 2999 },
       { label: "10ml", price: 1650 },
     ],
     badge: "Top Seller",
     liquid: "#7a2f35",
     tint: CARD,
     gradient: ["#b3a4a2", "#6b3038"],
+    images: ["/productRailImages/m2.png"],
+    hoverGradient: ["#e8e8ea", "#9a9a9e"],
+    texture: "/textures/eden-paper.webp",
+    textureTone: "light",
   },
   {
-    slug: "salt-and-vetiver",
-    name: "Salt & Vetiver",
+    slug: "rusu",
+    name: "Rusu",
     kind: "Eau de Parfum",
     family: "Fresh",
     subtitle: "Sea salt and dry vetiver",
@@ -141,12 +156,16 @@ export const products: Product[] = [
     ingredients: INGREDIENTS,
     notes: ["Sea salt", "grapefruit", "sage", "driftwood", "and vetiver"],
     sizes: [
-      { label: "50ml", price: 4800 },
+      { label: "50ml", price: 2999 },
       { label: "10ml", price: 1450 },
     ],
     liquid: "#b9cdd0",
     tint: CARD,
     gradient: ["#b7b9b5", "#7d9db3"],
+    images: ["/productRailImages/m3.png"],
+    hoverGradient: ["#e5eef2", "#a9c1cb"],
+    texture: "/textures/rusu-water.webp",
+    textureTone: "light",
   },
   {
     slug: "sandal-smoke",
@@ -191,8 +210,8 @@ export const products: Product[] = [
     gradient: ["#bbbcae", "#7b8752"],
   },
   {
-    slug: "rose-ledger",
-    name: "Rose Ledger",
+    slug: "mare",
+    name: "Mare",
     kind: "Eau de Parfum",
     family: "Floral",
     subtitle: "Dry rose and old paper",
@@ -204,13 +223,16 @@ export const products: Product[] = [
     ingredients: INGREDIENTS,
     notes: ["Pink pepper", "lychee", "rose absolute", "iris", "and papyrus"],
     sizes: [
-      { label: "50ml", price: 4800 },
+      { label: "50ml", price: 2999 },
       { label: "10ml", price: 1450 },
     ],
     badge: "New",
     liquid: "#e3a9a4",
     tint: CARD,
     gradient: ["#c2b6b3", "#a97573"],
+    images: ["/productRailImages/m1.png"],
+    hoverGradient: ["#efe9d6", "#c9b48c"],
+    texture: "/textures/mare-forest.webp",
   },
   {
     slug: "discovery-set",
@@ -224,7 +246,7 @@ export const products: Product[] = [
       "All eight Mithrak fragrances in 2ml vials, so you can wear each one for a day before you choose. The cost of the set is credited toward your first 50ml.",
     wearing: "Wear one scent a day, for a full day, before you decide.",
     ingredients: INGREDIENTS,
-    notes: ["Saffron Hour", "Monsoon Letter", "Raat Rani", "Velvet Oud", "and four more"],
+    notes: ["Kos", "Monsoon Letter", "Raat Rani", "Eden", "and four more"],
     sizes: [{ label: "Set", price: 1200 }],
     badge: "New",
     liquid: "#c7b28f",
@@ -240,10 +262,10 @@ export const products: Product[] = [
     descriptor: "Morning, rain, night",
     tagline: "A wardrobe for the morning, the rain and the night.",
     description:
-      "Saffron Hour, Monsoon Letter and Raat Rani in 10ml travel sprays, wrapped in a hand-stitched linen pouch.",
+      "Kos, Monsoon Letter and Raat Rani in 10ml travel sprays, wrapped in a hand-stitched linen pouch.",
     wearing: "One for each part of the day. Small enough for any bag.",
     ingredients: INGREDIENTS,
-    notes: ["Saffron Hour", "Monsoon Letter", "and Raat Rani"],
+    notes: ["Kos", "Monsoon Letter", "and Raat Rani"],
     sizes: [{ label: "Set", price: 3600 }],
     badge: "New",
     liquid: "#82915e",
@@ -257,32 +279,23 @@ export const products: Product[] = [
  * moves to the next slide when the video ends.
  * - video: file in /public/videos
  * - zoom:  scales the video up to crop black bars baked into the footage (1 = none)
+ * - image: product photo in the "Now playing" card (file in /public/heroCarouselImages)
  */
-export const heroSlides: { slug: string; video: string; zoom?: number }[] = [
-  { slug: "salt-and-vetiver", video: "/videos/hero-1.webm", zoom: 1.06 },
-  { slug: "velvet-oud", video: "/videos/hero-2.webm", zoom: 1.36 },
+export const heroSlides: { slug: string; video: string; zoom?: number; image?: string }[] = [
+  { slug: "rusu", video: "/videos/hero-1.webm", zoom: 1.06, image: "/heroCarouselImages/v1.png" },
+  { slug: "eden", video: "/videos/hero-2.webm", zoom: 1.36, image: "/heroCarouselImages/v2.png" },
 ];
 /** Homepage product rail. */
-export const featuredSlugs = [
-  "ritual-set",
-  "discovery-set",
-  "rose-ledger",
-  "saffron-hour",
-  "raat-rani",
-  "monsoon-letter",
-  "velvet-oud",
-  "salt-and-vetiver",
-  "sandal-smoke",
-  "fig-courtyard",
-];
+export const featuredSlugs = ["mare", "eden", "rusu", "kos"];
 /** Homepage full-bleed campaign block: product in the frosted card + background video. */
-export const campaign: { slug: string; video?: string; zoom?: number } = {
+export const campaign: { slug: string; video?: string; zoom?: number; image?: string } = {
   slug: "ritual-set",
+  image: "/heroCarouselImages/v2.png",
   video: "/videos/hero-2.webm",
   zoom: 1.36,
 };
 /** Product thumbnails in the mobile menu. */
-export const menuSlugs = ["ritual-set", "discovery-set", "rose-ledger", "saffron-hour"];
+export const menuSlugs = ["ritual-set", "discovery-set", "mare", "kos"];
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);

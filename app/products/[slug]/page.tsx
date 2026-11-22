@@ -1,4 +1,17 @@
 import type { Metadata } from "next";
+import { WorkInProgress } from "@/components/WorkInProgress";
+
+export const metadata: Metadata = { title: "Work in progress" };
+
+// Work in progress: every page except the homepage shows a placeholder for now.
+// The original page is kept below, commented out. To restore it, delete everything
+// above the comment block and remove the comment markers.
+export default function ProductPage() {
+  return <WorkInProgress />;
+}
+
+/* ---- Original page (disabled) ----
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductDetail } from "@/components/ProductDetail";
 import { getProduct, products } from "@/lib/products";
@@ -19,3 +32,4 @@ export default async function ProductPage({ params }: Params) {
   if (!p) notFound();
   return <ProductDetail product={p} />;
 }
+---- end original page ---- */

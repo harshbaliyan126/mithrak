@@ -48,7 +48,14 @@ export function ProductDetail({ product: p }: { product: Product }) {
   const [size, setSize] = useState(p.sizes[0]);
 
   return (
-    <div className="pdp" style={{ background: `linear-gradient(180deg, ${p.gradient[0]} 0%, ${p.gradient[1]} 100%)` }}>
+    <div
+      className={`pdp ${p.texture && p.textureTone === "light" ? "pdp-light" : ""}`}
+      style={{
+        background: p.texture
+          ? `url("${p.texture}") center / cover fixed`
+          : `linear-gradient(180deg, ${p.gradient[0]} 0%, ${p.gradient[1]} 100%)`,
+      }}
+    >
       <div className="pdp-cols">
         <aside className="pdp-left">
           <p className="pdp-descriptor">{p.descriptor}</p>

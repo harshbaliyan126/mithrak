@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Product } from "@/lib/products";
@@ -8,7 +9,17 @@ import { Bottle } from "./Bottle";
 import { PauseIcon, PlayIcon } from "./Icons";
 
 /** Full-bleed media with a centred frosted card (Lore's campaign block). */
-export function Campaign({ product: p, video, zoom }: { product: Product; video?: string; zoom?: number }) {
+export function Campaign({
+  product: p,
+  video,
+  zoom,
+  image,
+}: {
+  product: Product;
+  video?: string;
+  zoom?: number;
+  image?: string;
+}) {
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
   const section = useRef<HTMLElement>(null);
@@ -29,7 +40,11 @@ export function Campaign({ product: p, video, zoom }: { product: Product; video?
         <div className="campaign-card glass">
           <p className="label">{p.name}</p>
           <div className="campaign-media">
-            <Bottle liquid={p.liquid} name="campaign" set={p.family === "Set"} />
+            {image ? (
+              <Image src={image} alt={p.name} width={420} height={560} className="campaign-img" />
+            ) : (
+              <Bottle liquid={p.liquid} name="campaign" set={p.family === "Set"} />
+            )}
           </div>
           <p className="campaign-tag">{p.tagline}</p>
         </div>
